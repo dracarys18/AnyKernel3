@@ -38,6 +38,15 @@ chown -R root:root $ramdisk/*;
 dump_boot;
 
 # begin ramdisk changes
+# insert init.spectrum.rc in init.rc
+#Spectrum
+if [ -e init.qcom.rc ]; then
+backup_file init.qcom.rc;
+insert_line init.qcom.rc "init.spectrum.rc" before "import init.qcom.usb.rc" "import /init.spectrum.rc";
+else
+backup_file init.rc;
+insert_line init.rc "init.spectrum.rc" before "import /init.usb.rc" "import /init.spectrum.rc";
+fi;
 
 # end ramdisk changes
 
